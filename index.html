@@ -1,544 +1,618 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SunPower Pro | Smart Solar Solutions</title>
+    <title>Smart Inverter - Graduation Project</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap');
+        
+        :root {
+            --primary: #3b82f6;
+            --secondary: #1e40af;
         }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+        
+        body.rtl {
+            font-family: 'Tajawal', sans-serif;
+            direction: rtl;
+        }
+        
         .floating {
-            animation: float 6s ease-in-out infinite;
+            animation: floating 3s ease-in-out infinite;
         }
-        .gradient-text {
-            background: linear-gradient(90deg, #f6d365 0%, #fda085 100%);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
         }
-        .gradient-bg {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        
+        .pulse {
+            animation: pulse 2s infinite;
         }
-        .stats-card {
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(59, 130, 246, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
+        }
+        
+        .slide-in {
+            animation: slideIn 1s forwards;
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(-100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .slide-in-rtl {
+            animation: slideInRtl 1s forwards;
+        }
+        
+        @keyframes slideInRtl {
+            from { transform: translateX(100px); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-card {
             transition: all 0.3s ease;
         }
-        .stats-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-        }
-        .nav-link {
+        
+        .language-switch {
             position: relative;
+            width: 60px;
+            height: 30px;
         }
-        .nav-link:after {
-            content: '';
-            position: absolute;
+        
+        .language-switch input {
+            opacity: 0;
             width: 0;
-            height: 2px;
-            bottom: 0;
-            left: 0;
-            background-color: #f6d365;
-            transition: width 0.3s ease;
+            height: 0;
         }
-        .nav-link:hover:after {
-            width: 100%;
+        
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+        
+        .slider:before {
+            position: absolute;
+            content: "EN";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        input:checked + .slider {
+            background-color: var(--primary);
+        }
+        
+        input:checked + .slider:before {
+            content: "AR";
+            transform: translateX(30px);
         }
     </style>
 </head>
-<body class="font-sans bg-gray-50">
-    <!-- Navigation -->
-    <nav class="fixed w-full bg-white shadow-md z-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0 flex items-center">
-                        <i class="fas fa-solar-panel text-3xl text-yellow-500 mr-2"></i>
-                        <span class="text-xl font-bold text-gray-800">SunPower <span class="text-yellow-500">Pro</span></span>
-                    </div>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="nav-link text-gray-700 hover:text-yellow-500">Home</a>
-                    <a href="#features" class="nav-link text-gray-700 hover:text-yellow-500">Features</a>
-                    <a href="#products" class="nav-link text-gray-700 hover:text-yellow-500">Products</a>
-                    <a href="#about" class="nav-link text-gray-700 hover:text-yellow-500">About</a>
-                    <a href="#contact" class="nav-link text-gray-700 hover:text-yellow-500">Contact</a>
-                    <button class="gradient-bg text-white px-6 py-2 rounded-full hover:shadow-lg transition duration-300">Get Quote</button>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="menu-btn" class="text-gray-700 hover:text-yellow-500 focus:outline-none">
-                        <i class="fas fa-bars text-2xl"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-        <!-- Mobile menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
-            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Home</a>
-                <a href="#features" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Features</a>
-                <a href="#products" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Products</a>
-                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">About</a>
-                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-yellow-500 hover:bg-gray-50">Contact</a>
-                <button class="gradient-bg text-white px-6 py-2 rounded-full w-full mt-2 hover:shadow-lg transition duration-300">Get Quote</button>
-            </div>
-        </div>
-    </nav>
+<body class="bg-gray-50">
+    <!-- Language Toggle -->
+    <div class="fixed top-4 right-4 z-50 flex items-center gap-2 bg-white p-2 rounded-full shadow-lg">
+        <label class="language-switch">
+            <input type="checkbox" id="languageToggle">
+            <span class="slider"></span>
+        </label>
+    </div>
 
-    <!-- Hero Section -->
-    <section id="home" class="pt-24 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row items-center">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-800 mb-6">
-                    Smart Solar <span class="gradient-text">Power Solutions</span> for Your Home
-                </h1>
-                <p class="text-lg text-gray-600 mb-8">
-                    Harness the power of the sun with our advanced smart inverters and solar panel systems. Save money, reduce your carbon footprint, and gain energy independence.
-                </p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-                    <button class="gradient-bg text-white px-8 py-3 rounded-full hover:shadow-lg transition duration-300 font-medium">
-                        Get Started
-                    </button>
-                    <button class="border-2 border-yellow-500 text-yellow-500 px-8 py-3 rounded-full hover:bg-yellow-500 hover:text-white transition duration-300 font-medium">
-                        Learn More
-                    </button>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16 relative overflow-hidden">
+        <div class="absolute inset-0 bg-black opacity-20"></div>
+        <div class="container mx-auto px-4 relative z-10">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-10 md:mb-0 slide-in">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-4" data-en="Smart Inverter System" data-ar="نظام العاكس الذكي">Smart Inverter System</h1>
+                    <p class="text-xl mb-8" data-en="An intelligent power conversion solution for renewable energy systems" data-ar="حل تحويل طاقة ذكي لأنظمة الطاقة المتجددة">An intelligent power conversion solution for renewable energy systems</p>
+                    <a href="#features" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300" data-en="Explore Features" data-ar="استكشف الميزات">Explore Features</a>
                 </div>
-                <div class="mt-10 flex items-center">
-                    <div class="flex -space-x-2">
-                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/12.jpg" alt="Customer">
-                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer">
-                        <img class="w-10 h-10 rounded-full border-2 border-white" src="https://randomuser.me/api/portraits/women/45.jpg" alt="Customer">
-                    </div>
-                    <div class="ml-4">
-                        <p class="text-gray-600">Trusted by <span class="font-bold text-gray-800">5000+</span> happy customers</p>
-                        <div class="flex text-yellow-400">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                            <span class="text-gray-600 ml-1">4.8 (1.2k reviews)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="md:w-1/2 relative">
-                <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Solar Panels" class="rounded-xl shadow-xl floating">
-                <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-lg">
-                    <div class="flex items-center">
-                        <div class="bg-yellow-100 p-3 rounded-full">
-                            <i class="fas fa-bolt text-yellow-500 text-xl"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-gray-500 text-sm">Energy Saved</p>
-                            <p class="font-bold text-gray-800">85%</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="absolute -top-6 -right-6 bg-white p-4 rounded-xl shadow-lg">
-                    <div class="flex items-center">
-                        <div class="bg-blue-100 p-3 rounded-full">
-                            <i class="fas fa-chart-line text-blue-500 text-xl"></i>
-                        </div>
-                        <div class="ml-3">
-                            <p class="text-gray-500 text-sm">Performance</p>
-                            <p class="font-bold text-gray-800">98%</p>
-                        </div>
-                    </div>
+                <div class="md:w-1/2 flex justify-center floating">
+                    <img src="https://images.unsplash.com/photo-1624397640148-949b1732bb0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Smart Inverter" class="rounded-lg shadow-2xl max-w-md w-full">
                 </div>
             </div>
         </div>
-    </section>
+    </header>
 
-    <!-- Stats Section -->
-    <section class="py-16 gradient-bg text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div class="stats-card bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm text-center">
-                    <i class="fas fa-solar-panel text-4xl mb-4"></i>
-                    <h3 class="text-3xl font-bold mb-2">25+</h3>
-                    <p class="text-white text-opacity-80">Solar Products</p>
-                </div>
-                <div class="stats-card bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm text-center">
-                    <i class="fas fa-home text-4xl mb-4"></i>
-                    <h3 class="text-3xl font-bold mb-2">5000+</h3>
-                    <p class="text-white text-opacity-80">Happy Homes</p>
-                </div>
-                <div class="stats-card bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm text-center">
-                    <i class="fas fa-leaf text-4xl mb-4"></i>
-                    <h3 class="text-3xl font-bold mb-2">120K+</h3>
-                    <p class="text-white text-opacity-80">Tons CO2 Saved</p>
-                </div>
-                <div class="stats-card bg-white bg-opacity-10 p-6 rounded-xl backdrop-blur-sm text-center">
-                    <i class="fas fa-bolt text-4xl mb-4"></i>
-                    <h3 class="text-3xl font-bold mb-2">24/7</h3>
-                    <p class="text-white text-opacity-80">Energy Monitoring</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Why Choose <span class="gradient-text">SunPower Pro</span></h2>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Our smart solar solutions are designed to maximize efficiency, reduce costs, and provide seamless energy management.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-yellow-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-brain text-2xl text-yellow-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Smart AI Technology</h3>
-                <p class="text-gray-600">Our inverters use advanced AI to optimize energy consumption based on your usage patterns and weather forecasts.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-blue-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-mobile-alt text-2xl text-blue-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Mobile App Control</h3>
-                <p class="text-gray-600">Monitor and control your solar system from anywhere with our intuitive mobile application.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-green-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-battery-three-quarters text-2xl text-green-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Battery Storage</h3>
-                <p class="text-gray-600">Store excess energy for use during peak hours or outages with our high-capacity battery systems.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-purple-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-chart-pie text-2xl text-purple-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Real-time Analytics</h3>
-                <p class="text-gray-600">Detailed energy production and consumption analytics help you make informed decisions.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-red-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-shield-alt text-2xl text-red-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Grid Protection</h3>
-                <p class="text-gray-600">Automatic grid isolation during outages keeps your home powered while protecting utility workers.</p>
-            </div>
-            <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-                <div class="bg-indigo-100 w-16 h-16 rounded-full flex items-center justify-center mb-6">
-                    <i class="fas fa-cogs text-2xl text-indigo-500"></i>
-                </div>
-                <h3 class="text-xl font-bold text-gray-800 mb-3">Easy Maintenance</h3>
-                <p class="text-gray-600">Self-diagnostic systems and modular design make maintenance simple and cost-effective.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Products Section -->
-    <section id="products" class="py-20 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- About Project -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Our <span class="gradient-text">Products</span></h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">High-quality solar products designed for maximum efficiency and durability.</p>
+                <h2 class="text-3xl font-bold text-blue-600 mb-4" data-en="About The Project" data-ar="حول المشروع">About The Project</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="max-w-3xl mx-auto text-gray-600 text-lg" data-en="Our graduation project focuses on developing a smart inverter system that efficiently converts DC power from solar panels to AC power with intelligent monitoring and control capabilities." data-ar="يركز مشروع تخرجنا على تطوير نظام عاكس ذكي يحول طاقة التيار المستمر من الألواح الشمسية إلى طاقة تيار متردد بكفاءة مع إمكانيات المراقبة والتحكم الذكية.">Our graduation project focuses on developing a smart inverter system that efficiently converts DC power from solar panels to AC power with intelligent monitoring and control capabilities.</p>
             </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="order-1 md:order-1">
+                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Inverter Components" class="rounded-lg shadow-lg w-full">
+                </div>
+                <div class="order-2 md:order-2">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-en="Project Objectives" data-ar="أهداف المشروع">Project Objectives</h3>
+                    <ul class="space-y-3 text-gray-600">
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span data-en="Develop an efficient power conversion system with minimal energy loss" data-ar="تطوير نظام تحويل طاقة بكفاءة مع الحد الأدنى من فقدان الطاقة">Develop an efficient power conversion system with minimal energy loss</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span data-en="Implement real-time monitoring of power parameters" data-ar="تنفيذ مراقبة في الوقت الحقيقي لمعايير الطاقة">Implement real-time monitoring of power parameters</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span data-en="Create a user-friendly interface for system control" data-ar="إنشاء واجهة سهلة الاستخدام للتحكم في النظام">Create a user-friendly interface for system control</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
+                            <span data-en="Enable remote monitoring and control via mobile application" data-ar="تمكين المراقبة والتحكم عن بعد عبر تطبيق الهاتف المحمول">Enable remote monitoring and control via mobile application</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4" data-en="Key Features" data-ar="الميزات الرئيسية">Key Features</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="max-w-3xl mx-auto text-gray-600" data-en="Our smart inverter system incorporates cutting-edge technologies to deliver superior performance and reliability" data-ar="يضم نظام العاكس الذكي الخاص بأحدث التقنيات لتقديم أداء وموثوقية فائقة">Our smart inverter system incorporates cutting-edge technologies to deliver superior performance and reliability</p>
+            </div>
+            
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Smart Inverter" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-yellow-500 text-white px-3 py-1 rounded-full text-sm font-medium">BEST SELLER</div>
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-bolt text-blue-600 text-3xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">SunPower Pro Inverter</h3>
-                        <p class="text-gray-600 mb-4">Our flagship smart inverter with AI optimization and mobile app control.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-gray-800">$1,299</span>
-                            <button class="gradient-bg text-white px-4 py-2 rounded-full hover:shadow-lg transition duration-300">View Details</button>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="High Efficiency" data-ar="كفاءة عالية">High Efficiency</h3>
+                    <p class="text-gray-600" data-en="Achieves up to 98% conversion efficiency with advanced MPPT technology" data-ar="تحقيق كفاءة تحويل تصل إلى 98٪ مع تقنية MPPT المتقدمة">Achieves up to 98% conversion efficiency with advanced MPPT technology</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Solar Panel" class="w-full h-full object-cover">
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-mobile-alt text-blue-600 text-3xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Premium Solar Panels</h3>
-                        <p class="text-gray-600 mb-4">High-efficiency monocrystalline panels with 25-year performance warranty.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-gray-800">$299/panel</span>
-                            <button class="gradient-bg text-white px-4 py-2 rounded-full hover:shadow-lg transition duration-300">View Details</button>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Remote Monitoring" data-ar="المراقبة عن بعد">Remote Monitoring</h3>
+                    <p class="text-gray-600" data-en="Monitor system performance from anywhere using our mobile app" data-ar="مراقبة أداء النظام من أي مكان باستخدام تطبيقنا للهاتف المحمول">Monitor system performance from anywhere using our mobile app</p>
                 </div>
-                <div class="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:-translate-y-2">
-                    <div class="relative h-48 overflow-hidden">
-                        <img src="https://images.unsplash.com/photo-1624395213041-f4b5a02cda53?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Battery System" class="w-full h-full object-cover">
-                        <div class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium">NEW</div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-brain text-blue-600 text-3xl"></i>
                     </div>
-                    <div class="p-6">
-                        <h3 class="text-xl font-bold text-gray-800 mb-2">Energy Storage System</h3>
-                        <p class="text-gray-600 mb-4">Lithium-ion battery storage for backup power and peak shaving.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="text-2xl font-bold text-gray-800">$3,999</span>
-                            <button class="gradient-bg text-white px-4 py-2 rounded-full hover:shadow-lg transition duration-300">View Details</button>
-                        </div>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Smart Algorithms" data-ar="خوارزميات ذكية">Smart Algorithms</h3>
+                    <p class="text-gray-600" data-en="Adaptive control algorithms optimize performance under varying conditions" data-ar="خوارزميات التحكم التكيفية تحسن الأداء تحت ظروف مختلفة">Adaptive control algorithms optimize performance under varying conditions</p>
                 </div>
-            </div>
-            <div class="text-center mt-12">
-                <button class="border-2 border-yellow-500 text-yellow-500 px-8 py-3 rounded-full hover:bg-yellow-500 hover:text-white transition duration-300 font-medium">
-                    View All Products
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- How It Works Section -->
-    <section class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-        <div class="text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">How It <span class="gradient-text">Works</span></h2>
-            <p class="text-lg text-gray-600 max-w-3xl mx-auto">Simple steps to energy independence with SunPower Pro.</p>
-        </div>
-        <div class="flex flex-col md:flex-row items-center justify-between">
-            <div class="md:w-1/2 mb-10 md:mb-0">
-                <div class="relative">
-                    <div class="absolute top-0 left-0 w-full h-full bg-yellow-500 rounded-xl -z-10 transform rotate-2"></div>
-                    <img src="https://images.unsplash.com/photo-1508514177221-188b1cf16e9d?ixlib=rb-1.2.1&auto=format&fit=crop&w=1000&q=80" alt="Solar Installation" class="rounded-xl shadow-xl">
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-shield-alt text-blue-600 text-3xl"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Safety Protection" data-ar="حماية السلامة">Safety Protection</h3>
+                    <p class="text-gray-600" data-en="Multiple protection mechanisms against overload, short circuit, and overheating" data-ar="آليات حماية متعددة ضد التحميل الزائد والدائرة القصيرة والسخونة الزائدة">Multiple protection mechanisms against overload, short circuit, and overheating</p>
                 </div>
-            </div>
-            <div class="md:w-1/2 md:pl-12">
-                <div class="flex mb-8">
-                    <div class="flex-shrink-0">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 text-yellow-500">
-                            <span class="text-xl font-bold">1</span>
-                        </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-chart-line text-blue-600 text-3xl"></i>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-bold text-gray-800">Consultation & Assessment</h3>
-                        <p class="mt-2 text-gray-600">Our experts evaluate your energy needs and design a customized solar solution.</p>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Real-time Analytics" data-ar="التحليلات في الوقت الحقيقي">Real-time Analytics</h3>
+                    <p class="text-gray-600" data-en="Comprehensive data logging and performance analytics" data-ar="تسجيل بيانات شامل وتحليلات الأداء">Comprehensive data logging and performance analytics</p>
                 </div>
-                <div class="flex mb-8">
-                    <div class="flex-shrink-0">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-blue-100 text-blue-500">
-                            <span class="text-xl font-bold">2</span>
-                        </div>
+                
+                <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
+                        <i class="fas fa-plug text-blue-600 text-3xl"></i>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-bold text-gray-800">Installation</h3>
-                        <p class="mt-2 text-gray-600">Professional installation by certified technicians with minimal disruption.</p>
-                    </div>
-                </div>
-                <div class="flex mb-8">
-                    <div class="flex-shrink-0">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-500">
-                            <span class="text-xl font-bold">3</span>
-                        </div>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-bold text-gray-800">Activation & Monitoring</h3>
-                        <p class="mt-2 text-gray-600">System activation and setup of remote monitoring through our mobile app.</p>
-                    </div>
-                </div>
-                <div class="flex">
-                    <div class="flex-shrink-0">
-                        <div class="flex items-center justify-center h-12 w-12 rounded-full bg-purple-100 text-purple-500">
-                            <span class="text-xl font-bold">4</span>
-                        </div>
-                    </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-bold text-gray-800">Enjoy Savings</h3>
-                        <p class="mt-2 text-gray-600">Start saving on your electricity bills while reducing your carbon footprint.</p>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Grid Integration" data-ar="التكامل مع الشبكة">Grid Integration</h3>
+                    <p class="text-gray-600" data-en="Seamless integration with utility grid for hybrid operation" data-ar="تكامل سلس مع شبكة المرافق للتشغيل الهجين">Seamless integration with utility grid for hybrid operation</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials Section -->
-    <section class="py-20 bg-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Technical Specifications -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
             <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">What Our <span class="gradient-text">Customers Say</span></h2>
-                <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hear from homeowners who have transformed their energy usage with SunPower Pro.</p>
+                <h2 class="text-3xl font-bold text-blue-600 mb-4" data-en="Technical Specifications" data-ar="المواصفات الفنية">Technical Specifications</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="text-gray-600">5.0</span>
-                    </div>
-                    <p class="text-gray-600 mb-6">"Our electricity bill dropped by 80% after installing SunPower Pro. The smart inverter is incredibly efficient and the app makes monitoring so easy."</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/32.jpg" alt="Sarah Johnson">
-                        <div>
-                            <h4 class="font-bold text-gray-800">Sarah Johnson</h4>
-                            <p class="text-gray-500 text-sm">Homeowner, California</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div class="order-2 md:order-1">
+                    <div class="bg-gray-50 p-6 rounded-lg shadow-inner">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h4 class="font-semibold text-blue-600 mb-3" data-en="Input Parameters" data-ar="معايير الإدخال">Input Parameters</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="DC Input Voltage: 24-48V" data-ar="جهد الإدخال DC: 24-48 فولت">DC Input Voltage: 24-48V</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Max Input Current: 30A" data-ar="أقصى تيار إدخال: 30 أمبير">Max Input Current: 30A</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="MPPT Voltage Range: 30-60V" data-ar="نطاق جهد MPPT: 30-60 فولت">MPPT Voltage Range: 30-60V</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600 mb-3" data-en="Output Parameters" data-ar="معايير الإخراج">Output Parameters</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="AC Output Voltage: 220V ±5%" data-ar="جهد الإخراج AC: 220 فولت ±5٪">AC Output Voltage: 220V ±5%</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Output Frequency: 50/60Hz" data-ar="تردد الإخراج: 50/60 هرتز">Output Frequency: 50/60Hz</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Max Output Power: 2000W" data-ar="أقصى طاقة إخراج: 2000 واط">Max Output Power: 2000W</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600 mb-3" data-en="Efficiency" data-ar="الكفاءة">Efficiency</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Peak Efficiency: 98%" data-ar="كفاءة الذروة: 98٪">Peak Efficiency: 98%</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="European Efficiency: 96%" data-ar="الكفاءة الأوروبية: 96٪">European Efficiency: 96%</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-blue-600 mb-3" data-en="Protection" data-ar="الحماية">Protection</h4>
+                                <ul class="space-y-2 text-gray-700">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Overload Protection" data-ar="حماية من التحميل الزائد">Overload Protection</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Short Circuit Protection" data-ar="حماية من الدائرة القصيرة">Short Circuit Protection</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
+                                        <span data-en="Over Temperature Protection" data-ar="حماية من ارتفاع درجة الحرارة">Over Temperature Protection</span>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                        </div>
-                        <span class="text-gray-600">5.0</span>
+                <div class="order-1 md:order-2">
+                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Inverter Technical Details" class="rounded-lg shadow-lg w-full">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4" data-en="Our Team" data-ar="فريقنا">Our Team</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="max-w-3xl mx-auto text-gray-600" data-en="Meet the talented students behind this innovative project" data-ar="تعرف على الطلاب الموهوبين وراء هذا المشروع المبتكر">Meet the talented students behind this innovative project</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-600 mb-6">"The installation team was professional and efficient. We've had zero issues in 2 years and the battery backup has saved us during power outages."</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/men/54.jpg" alt="Michael Chen">
-                        <div>
-                            <h4 class="font-bold text-gray-800">Michael Chen</h4>
-                            <p class="text-gray-500 text-sm">Business Owner, Texas</p>
-                        </div>
+                    <h3 class="text-xl font-semibold mb-1">Ahmed Ali</h3>
+                    <p class="text-blue-600 mb-3" data-en="Hardware Engineer" data-ar="مهندس أجهزة">Hardware Engineer</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
-                <div class="bg-white p-8 rounded-xl shadow-lg">
-                    <div class="flex items-center mb-4">
-                        <div class="flex text-yellow-400 mr-2">
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star"></i>
-                            <i class="fas fa-star-half-alt"></i>
-                        </div>
-                        <span class="text-gray-600">4.5</span>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="w-full h-full object-cover">
                     </div>
-                    <p class="text-gray-600 mb-6">"Excellent customer service and the system performs better than promised. We're producing more energy than we use and getting credits from the utility!"</p>
-                    <div class="flex items-center">
-                        <img class="w-12 h-12 rounded-full mr-4" src="https://randomuser.me/api/portraits/women/68.jpg" alt="Emily Rodriguez">
-                        <div>
-                            <h4 class="font-bold text-gray-800">Emily Rodriguez</h4>
-                            <p class="text-gray-500 text-sm">Teacher, Florida</p>
-                        </div>
+                    <h3 class="text-xl font-semibold mb-1">Mona Hassan</h3>
+                    <p class="text-blue-600 mb-3" data-en="Software Developer" data-ar="مطورة برمجيات">Software Developer</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1">Omar Khalid</h3>
+                    <p class="text-blue-600 mb-3" data-en="Embedded Systems" data-ar="أنظمة مدمجة">Embedded Systems</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1">Lina Mahmoud</h3>
+                    <p class="text-blue-600 mb-3" data-en="UI/UX Designer" data-ar="مصممة واجهات">UI/UX Designer</p>
+                    <div class="flex justify-center space-x-3">
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- CTA Section -->
-    <section class="py-20 gradient-bg text-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Ready to <span class="text-yellow-300">Power Your Home</span> with Solar Energy?</h2>
-            <p class="text-xl mb-8 max-w-3xl mx-auto text-white text-opacity-90">Join thousands of happy customers saving money and the planet with SunPower Pro.</p>
-            <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
-                <button class="bg-white text-yellow-600 px-8 py-3 rounded-full hover:shadow-lg transition duration-300 font-medium">
-                    Get Free Consultation
-                </button>
-                <button class="border-2 border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-yellow-600 transition duration-300 font-medium">
-                    Call Now: (800) 555-1234
-                </button>
+    <!-- Gallery -->
+    <section class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-blue-600 mb-4" data-en="Project Gallery" data-ar="معرض المشروع">Project Gallery</h2>
+                <div class="w-20 h-1 bg-blue-500 mx-auto mb-6"></div>
+                <p class="max-w-3xl mx-auto text-gray-600" data-en="Visual journey through our project development stages" data-ar="رحلة بصرية عبر مراحل تطوير مشروعنا">Visual journey through our project development stages</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1508514177221-188e1eaf2d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="Circuit Design" data-ar="تصميم الدائرة">Circuit Design</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1625014618427-fbc980b974f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="Prototype Testing" data-ar="اختبار النموذج الأولي">Prototype Testing</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="Mobile App Development" data-ar="تطوير تطبيق الهاتف">Mobile App Development</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="Final Assembly" data-ar="التجميع النهائي">Final Assembly</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1581094794329-c811329cf522?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="System Integration" data-ar="تكامل النظام">System Integration</h3>
+                    </div>
+                </div>
+                
+                <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <div class="p-4">
+                        <h3 class="font-semibold" data-en="Field Testing" data-ar="الاختبار الميداني">Field Testing</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="py-20 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</h2>
+                <div class="w-20 h-1 bg-white mx-auto mb-6"></div>
+                <p class="max-w-3xl mx-auto" data-en="Have questions about our project? We'd love to hear from you!" data-ar="هل لديك أسئلة حول مشروعنا؟ نحن نحب أن نسمع منك!">Have questions about our project? We'd love to hear from you!</p>
+            </div>
+            
+            <div class="max-w-2xl mx-auto bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 shadow-lg">
+                <form>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block mb-2" data-en="Your Name" data-ar="اسمك">Your Name</label>
+                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
+                        </div>
+                        <div>
+                            <label for="email" class="block mb-2" data-en="Email Address" data-ar="عنوان البريد الإلكتروني">Email Address</label>
+                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="subject" class="block mb-2" data-en="Subject" data-ar="الموضوع">Subject</label>
+                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="message" class="block mb-2" data-en="Your Message" data-ar="رسالتك">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70"></textarea>
+                        </div>
+                        <div class="md:col-span-2">
+                            <button type="submit" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 w-full md:w-auto" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <div class="flex items-center mb-6">
-                        <i class="fas fa-solar-panel text-3xl text-yellow-500 mr-2"></i>
-                        <span class="text-xl font-bold">SunPower <span class="text-yellow-500">Pro</span></span>
+                    <h3 class="text-xl font-semibold mb-4" data-en="Smart Inverter" data-ar="العاكس الذكي">Smart Inverter</h3>
+                    <p class="text-gray-400" data-en="An intelligent power conversion solution for renewable energy systems" data-ar="حل تحويل طاقة ذكي لأنظمة الطاقة المتجددة">An intelligent power conversion solution for renewable energy systems</p>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition" data-en="Features" data-ar="الميزات">Features</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Gallery" data-ar="المعرض">Gallery</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-en="Technical Details" data-ar="تفاصيل فنية">Technical Details</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Specifications" data-ar="المواصفات">Specifications</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Documentation" data-ar="الوثائق">Documentation</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Research Papers" data-ar="أوراق البحث">Research Papers</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 class="text-xl font-semibold mb-4" data-en="Connect With Us" data-ar="تواصل معنا">Connect With Us</h3>
+                    <div class="flex space-x-4 mb-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-700 transition"><i class="fab fa-linkedin-in"></i></a>
                     </div>
-                    <p class="text-gray-400 mb-4">Leading provider of smart solar solutions for homes and businesses.</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-6">Quick Links</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#home" class="text-gray-400 hover:text-yellow-500 transition duration-300">Home</a></li>
-                        <li><a href="#features" class="text-gray-400 hover:text-yellow-500 transition duration-300">Features</a></li>
-                        <li><a href="#products" class="text-gray-400 hover:text-yellow-500 transition duration-300">Products</a></li>
-                        <li><a href="#about" class="text-gray-400 hover:text-yellow-500 transition duration-300">About Us</a></li>
-                        <li><a href="#contact" class="text-gray-400 hover:text-yellow-500 transition duration-300">Contact</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold mb-6">Products</h3>
-                    <ul class="space-y-3">
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Smart Inverters</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Solar Panels</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Battery Storage</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Monitoring Systems</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Accessories</a></li>
-                    </ul>
-                </div>
-                <div id="contact">
-                    <h3 class="text-lg font-bold mb-6">Contact Us</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center text-gray-400"><i class="fas fa-map-marker-alt mr-3 text-yellow-500"></i> 123 Solar Street, San Francisco, CA</li>
-                        <li class="flex items-center text-gray-400"><i class="fas fa-phone-alt mr-3 text-yellow-500"></i> (800) 555-1234</li>
-                        <li class="flex items-center text-gray-400"><i class="fas fa-envelope mr-3 text-yellow-500"></i> info@sunpowerpro.com</li>
-                        <li class="flex items-center text-gray-400"><i class="fas fa-clock mr-3 text-yellow-500"></i> Mon-Fri: 9AM-6PM</li>
-                    </ul>
+                    <p class="text-gray-400" data-en="Email: info@smartinverter.com" data-ar="البريد الإلكتروني: info@smartinverter.com">Email: info@smartinverter.com</p>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center">
-                <p class="text-gray-400 mb-4 md:mb-0">© 2023 SunPower Pro. All rights reserved.</p>
-                <div class="flex space-x-6">
-                    <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Privacy Policy</a>
-                    <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Terms of Service</a>
-                    <a href="#" class="text-gray-400 hover:text-yellow-500 transition duration-300">Sitemap</a>
-                </div>
+            
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p data-en="© 2023 Smart Inverter Project. All rights reserved." data-ar="© 2023 مشروع العاكس الذكي. جميع الحقوق محفوظة.">© 2023 Smart Inverter Project. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        const menuBtn = document.getElementById('menu-btn');
-        const mobileMenu = document.getElementById('mobile-menu');
-        
-        menuBtn.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageToggle = document.getElementById('languageToggle');
+            const body = document.body;
+            
+            // Check for saved language preference
+            const savedLang = localStorage.getItem('languagePreference');
+            if (savedLang === 'ar') {
+                languageToggle.checked = true;
+                switchToArabic();
+            }
+            
+            // Language toggle event
+            languageToggle.addEventListener('change', function() {
+                if (this.checked) {
+                    switchToArabic();
+                    localStorage.setItem('languagePreference', 'ar');
+                } else {
+                    switchToEnglish();
+                    localStorage.setItem('languagePreference', 'en');
+                }
+            });
+            
+            function switchToArabic() {
+                body.classList.add('rtl');
+                document.querySelectorAll('[data-ar]').forEach(element => {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = element.getAttribute('data-ar');
+                    } else {
+                        element.textContent = element.getAttribute('data-ar');
+                    }
                 });
                 
-                // Close mobile menu if open
-                if (!mobileMenu.classList.contains('hidden')) {
-                    mobileMenu.classList.add('hidden');
-                }
+                // Update animations for RTL
+                document.querySelectorAll('.slide-in').forEach(el => {
+                    el.classList.remove('slide-in');
+                    el.classList.add('slide-in-rtl');
+                });
+            }
+            
+            function switchToEnglish() {
+                body.classList.remove('rtl');
+                document.querySelectorAll('[data-en]').forEach(element => {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = element.getAttribute('data-en');
+                    } else {
+                        element.textContent = element.getAttribute('data-en');
+                    }
+                });
+                
+                // Update animations for LTR
+                document.querySelectorAll('.slide-in-rtl').forEach(el => {
+                    el.classList.remove('slide-in-rtl');
+                    el.classList.add('slide-in');
+                });
+            }
+            
+            // Add animations on scroll
+            const observerOptions = {
+                threshold: 0.1
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        if (body.classList.contains('rtl')) {
+                            entry.target.classList.add('slide-in-rtl');
+                        } else {
+                            entry.target.classList.add('slide-in');
+                        }
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.slide-in, .slide-in-rtl').forEach(el => {
+                observer.observe(el);
             });
         });
-
-        // Animation on scroll
-        const animateOnScroll = () => {
-            const elements = document.querySelectorAll('.stats-card, .floating');
-            
-            elements.forEach(element => {
-                const elementPosition = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-                
-                if (elementPosition < windowHeight - 100) {
-                    element.classList.add('animate__animated', 'animate__fadeInUp');
-                }
-            });
-        };
-
-        window.addEventListener('scroll', animateOnScroll);
-        window.addEventListener('load', animateOnScroll);
     </script>
 </body>
 </html>
