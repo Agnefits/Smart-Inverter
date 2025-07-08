@@ -122,6 +122,27 @@
             content: "AR";
             transform: translateX(30px);
         }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.4,0,0.2,1), transform 0.8s cubic-bezier(0.4,0,0.2,1);
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .gallery-item img {
+            transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+        }
+        .gallery-item img:hover {
+            transform: scale(1.08) rotate(-2deg);
+        }
+        button, .btn, a.bg-white, a.bg-blue-600 {
+            transition: transform 0.2s cubic-bezier(0.4,0,0.2,1);
+        }
+        button:hover, .btn:hover, a.bg-white:hover, a.bg-blue-600:hover {
+            transform: scale(1.07);
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -141,10 +162,23 @@
                 <div class="md:w-1/2 mb-10 md:mb-0 slide-in">
                     <h1 class="text-4xl md:text-5xl font-bold mb-4" data-en="Smart Inverter System" data-ar="نظام العاكس الذكي">Smart Inverter System</h1>
                     <p class="text-xl mb-8" data-en="An intelligent power conversion solution for renewable energy systems" data-ar="حل تحويل طاقة ذكي لأنظمة الطاقة المتجددة">An intelligent power conversion solution for renewable energy systems</p>
+                    <p class="text-base mb-4 whitespace-pre-line text-white" style="max-width: 32rem;" data-en="A Graduation Project Submitted in partial fulfillment of requirements for the Degree of Professional Bachelor of Electrical Technology
+Department of Electrical Technology
+Supervisor Committee:
+Assoc. Prof.  Ahmed Elnozahy
+Dr. Mahmoud Mahrous" data-ar="مشروع تخرح لإستيفاء متطلبات درجة البكليريوس المهني في التخصص
+تحت أشراف 
+د. أحمد النزهي 
+د. محمود محروس">A Graduation Project Submitted in partial fulfillment of requirements for the Degree of Professional Bachelor of Electrical Technology
+Department of Electrical Technology
+Supervisor Committee:
+Assoc. Prof.  Ahmed Elnozahy
+Dr. Mahmoud Mahrous
+</p>
                     <a href="#features" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300" data-en="Explore Features" data-ar="استكشف الميزات">Explore Features</a>
                 </div>
                 <div class="md:w-1/2 flex justify-center floating">
-                    <img src="https://images.unsplash.com/photo-1624397640148-949b1732bb0a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Smart Inverter" class="rounded-lg shadow-2xl max-w-md w-full">
+                    <img src="project/1.png" alt="Smart Inverter" class="rounded-lg shadow-2xl max-w-md w-full">
                 </div>
             </div>
         </div>
@@ -161,7 +195,7 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div class="order-1 md:order-1">
-                    <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Inverter Components" class="rounded-lg shadow-lg w-full">
+                    <img src="project/3.png" alt="Inverter Components" class="rounded-lg shadow-lg w-full">
                 </div>
                 <div class="order-2 md:order-2">
                     <h3 class="text-2xl font-semibold text-gray-800 mb-4" data-en="Project Objectives" data-ar="أهداف المشروع">Project Objectives</h3>
@@ -176,7 +210,7 @@
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
-                            <span data-en="Create a user-friendly interface for system control" data-ar="إنشاء واجهة سهلة الاستخدام للتحكم في النظام">Create a user-friendly interface for system control</span>
+                            <span data-en="Create a user-friendly interface for system monitoring" data-ar="إنشاء واجهة سهلة الاستخدام للتحكم في النظام">Create a user-friendly interface for system monitoring</span>
                         </li>
                         <li class="flex items-start">
                             <i class="fas fa-check-circle text-blue-500 mt-1 mr-3"></i>
@@ -203,7 +237,7 @@
                         <i class="fas fa-bolt text-blue-600 text-3xl"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="High Efficiency" data-ar="كفاءة عالية">High Efficiency</h3>
-                    <p class="text-gray-600" data-en="Achieves up to 98% conversion efficiency with advanced MPPT technology" data-ar="تحقيق كفاءة تحويل تصل إلى 98٪ مع تقنية MPPT المتقدمة">Achieves up to 98% conversion efficiency with advanced MPPT technology</p>
+                    <p class="text-gray-600" data-en="Achieves up to 80% conversion efficiency with advanced MPPT technology" data-ar="تحقيق كفاءة تحويل تصل إلى 80٪ مع تقنية MPPT المتقدمة">Achieves up to 80% conversion efficiency with advanced MPPT technology</p>
                 </div>
                 
                 <div class="feature-card bg-white p-8 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
@@ -242,8 +276,8 @@
                     <div class="w-20 h-20 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6 pulse">
                         <i class="fas fa-plug text-blue-600 text-3xl"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Grid Integration" data-ar="التكامل مع الشبكة">Grid Integration</h3>
-                    <p class="text-gray-600" data-en="Seamless integration with utility grid for hybrid operation" data-ar="تكامل سلس مع شبكة المرافق للتشغيل الهجين">Seamless integration with utility grid for hybrid operation</p>
+                    <h3 class="text-xl font-semibold mb-3 text-gray-800" data-en="Pure Sine Wave" data-ar="موجة جيبية نقية">Pure Sine Wave</h3>
+                    <p class="text-gray-600" data-en="We use LC filter to purify the output wave form to be similar to sine wave" data-ar="نستخدم مرشح LC لتنظيف تردد الإخراج ليكون مشابهاً للموجة الجيبية">We use LC filter to purify the output wave form to be similar to sine wave</p>
                 </div>
             </div>
         </div>
@@ -270,11 +304,7 @@
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="Max Input Current: 30A" data-ar="أقصى تيار إدخال: 30 أمبير">Max Input Current: 30A</span>
-                                    </li>
-                                    <li class="flex items-start">
-                                        <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="MPPT Voltage Range: 30-60V" data-ar="نطاق جهد MPPT: 30-60 فولت">MPPT Voltage Range: 30-60V</span>
+                                        <span data-en="Max Input Current: 10A" data-ar="أقصى تيار إدخال: 10 أمبير">Max Input Current: 10A</span>
                                     </li>
                                 </ul>
                             </div>
@@ -287,11 +317,11 @@
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="Output Frequency: 50/60Hz" data-ar="تردد الإخراج: 50/60 هرتز">Output Frequency: 50/60Hz</span>
+                                        <span data-en="Output Frequency: 50Hz" data-ar="تردد الإخراج: 50 هرتز">Output Frequency: 50Hz</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="Max Output Power: 2000W" data-ar="أقصى طاقة إخراج: 2000 واط">Max Output Power: 2000W</span>
+                                        <span data-en="Max Output Power: 500W" data-ar="أقصى طاقة إخراج: 500 واط">Max Output Power: 500W</span>
                                     </li>
                                 </ul>
                             </div>
@@ -300,11 +330,11 @@
                                 <ul class="space-y-2 text-gray-700">
                                     <li class="flex items-start">
                                         <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="Peak Efficiency: 98%" data-ar="كفاءة الذروة: 98٪">Peak Efficiency: 98%</span>
+                                        <span data-en="Peak Efficiency: 90%" data-ar="كفاءة الذروة: 90٪">Peak Efficiency: 90%</span>
                                     </li>
                                     <li class="flex items-start">
                                         <i class="fas fa-circle text-blue-500 text-xs mt-2 mr-2"></i>
-                                        <span data-en="European Efficiency: 96%" data-ar="الكفاءة الأوروبية: 96٪">European Efficiency: 96%</span>
+                                        <span data-en="Efficiency: 80%" data-ar="الكفاءة: 80٪">Efficiency: 80%</span>
                                     </li>
                                 </ul>
                             </div>
@@ -329,7 +359,7 @@
                     </div>
                 </div>
                 <div class="order-1 md:order-2">
-                    <img src="https://images.unsplash.com/photo-1551269901-5c5e14c25df7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Inverter Technical Details" class="rounded-lg shadow-lg w-full">
+                    <img src="project/2.bmp" alt="Inverter Technical Details" class="rounded-lg shadow-lg w-full">
                 </div>
             </div>
         </div>
@@ -347,50 +377,80 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
                     <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
-                        <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Team Member" class="w-full h-full object-cover">
+                        <img src="photo/Abdelaal Abdelnasser Abdelaal.png" alt="Abdelaal Abdelnasser Abdelaal" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl font-semibold mb-1">Ahmed Ali</h3>
-                    <p class="text-blue-600 mb-3" data-en="Hardware Engineer" data-ar="مهندس أجهزة">Hardware Engineer</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Abdelaal Abdelnasser Abdelaal" data-ar="عبدالعال عبدالناصر عبدالعال">Abdelaal Abdelnasser Abdelaal</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
                 </div>
-                
                 <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
                     <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
-                        <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Team Member" class="w-full h-full object-cover">
+                        <img src="photo/Abdullah Muhammed Hassan.png" alt="Abdullah Muhammed Hassan" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl font-semibold mb-1">Mona Hassan</h3>
-                    <p class="text-blue-600 mb-3" data-en="Software Developer" data-ar="مطورة برمجيات">Software Developer</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Abdullah Muhammed Hassan" data-ar="عبدالله محمد حسن">Abdullah Muhammed Hassan</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
                 </div>
-                
                 <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
                     <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
-                        <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Team Member" class="w-full h-full object-cover">
+                        <img src="photo/Ahmed Hassan Mahran.png" alt="Ahmed Hassan Mahran" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl font-semibold mb-1">Omar Khalid</h3>
-                    <p class="text-blue-600 mb-3" data-en="Embedded Systems" data-ar="أنظمة مدمجة">Embedded Systems</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
-                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Ahmed Hassan Mahran" data-ar="أحمد حسن مهران">Ahmed Hassan Mahran</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
                 </div>
-                
                 <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
                     <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
-                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Team Member" class="w-full h-full object-cover">
+                        <img src="photo/Houssien Mahmoud Taha.png" alt="Houssien Mahmoud Taha" class="w-full h-full object-cover">
                     </div>
-                    <h3 class="text-xl font-semibold mb-1">Lina Mahmoud</h3>
-                    <p class="text-blue-600 mb-3" data-en="UI/UX Designer" data-ar="مصممة واجهات">UI/UX Designer</p>
-                    <div class="flex justify-center space-x-3">
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-blue-500 hover:text-blue-700"><i class="fab fa-github"></i></a>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Houssien Mahmoud Taha" data-ar="حسين محمود طه">Houssien Mahmoud Taha</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Karim Ayman Anwar.png" alt="Karim Ayman Anwar" class="w-full h-full object-cover">
                     </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Karim Ayman Anwar" data-ar="كريم أيمن أنور">Karim Ayman Anwar</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Mahmoud Abdelwahab Abdelhamed.png" alt="Mahmoud Abdelwahab Abdelhamed" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Mahmoud Abdelwahab Abdelhamed" data-ar="محمود عبدالوهاب عبدالحميد">Mahmoud Abdelwahab Abdelhamed</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Mahmoud Ahmed Mohamed.png" alt="Mahmoud Ahmed Mohamed" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Mahmoud Ahmed Mohamed" data-ar="محمود أحمد محمد">Mahmoud Ahmed Mohamed</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Mahmoud Magdy Mahmoud.png" alt="Mahmoud Magdy Mahmoud" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Mahmoud Magdy Mahmoud" data-ar="محمود مجدي محمود">Mahmoud Magdy Mahmoud</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Mostafa Salah Abdallah.png" alt="Mostafa Salah Abdallah" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Mostafa Salah Abdallah" data-ar="مصطفى صلاح عبدالله">Mostafa Salah Abdallah</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Omar Ibrahim Ahmed.png" alt="Omar Ibrahim Ahmed" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Omar Ibrahim Ahmed" data-ar="عمر إبراهيم أحمد">Omar Ibrahim Ahmed</h3>
+                    <p class="text-blue-600 mb-3" data-en="Electric technologist" data-ar="تقني كهرباء">Electric technologist</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover:shadow-lg transition duration-300">
+                    <div class="w-32 h-32 rounded-full mx-auto mb-4 overflow-hidden border-4 border-blue-100">
+                        <img src="photo/Abdallah salah Abdallah.png" alt="Abdallah Salah Abdallah" class="w-full h-full object-cover">
+                    </div>
+                    <h3 class="text-xl font-semibold mb-1" data-en="Abdallah Salah Abdallah" data-ar="عبدالله محمد حسن">Abdallah Salah Abdallah</h3>
+                    <p class="text-blue-600 mb-3" data-en="IT technologist" data-ar="تقني تكنولوجيا المعلومات">IT technologist</p>
                 </div>
             </div>
         </div>
@@ -407,42 +467,42 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1508514177221-188e1eaf2d1d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/Circuit Design.png" alt="Circuit Design" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="Circuit Design" data-ar="تصميم الدائرة">Circuit Design</h3>
                     </div>
                 </div>
                 
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1625014618427-fbc980b974f5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/Prototype Testing.png" alt="Prototype Testing" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="Prototype Testing" data-ar="اختبار النموذج الأولي">Prototype Testing</h3>
                     </div>
                 </div>
                 
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/Mobile App Development.png" alt="Mobile App Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="Mobile App Development" data-ar="تطوير تطبيق الهاتف">Mobile App Development</h3>
                     </div>
                 </div>
                 
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/Final Assembly.png" alt="Final Assembly" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="Final Assembly" data-ar="التجميع النهائي">Final Assembly</h3>
                     </div>
                 </div>
                 
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1581094794329-c811329cf522?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/system integration.png" alt="System Integration" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="System Integration" data-ar="تكامل النظام">System Integration</h3>
                     </div>
                 </div>
                 
                 <div class="gallery-item overflow-hidden rounded-lg shadow-md hover:shadow-xl transition duration-300">
-                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" alt="Project Development" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
+                    <img src="under/Field test.png" alt="Field Testing" class="w-full h-64 object-cover transition duration-500 hover:scale-105">
                     <div class="p-4">
                         <h3 class="font-semibold" data-en="Field Testing" data-ar="الاختبار الميداني">Field Testing</h3>
                     </div>
@@ -451,88 +511,11 @@
         </div>
     </section>
 
-    <!-- Contact -->
-    <section class="py-20 bg-gradient-to-r from-blue-500 to-blue-700 text-white">
-        <div class="container mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold mb-4" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</h2>
-                <div class="w-20 h-1 bg-white mx-auto mb-6"></div>
-                <p class="max-w-3xl mx-auto" data-en="Have questions about our project? We'd love to hear from you!" data-ar="هل لديك أسئلة حول مشروعنا؟ نحن نحب أن نسمع منك!">Have questions about our project? We'd love to hear from you!</p>
-            </div>
-            
-            <div class="max-w-2xl mx-auto bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-xl p-8 shadow-lg">
-                <form>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="name" class="block mb-2" data-en="Your Name" data-ar="اسمك">Your Name</label>
-                            <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
-                        </div>
-                        <div>
-                            <label for="email" class="block mb-2" data-en="Email Address" data-ar="عنوان البريد الإلكتروني">Email Address</label>
-                            <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="subject" class="block mb-2" data-en="Subject" data-ar="الموضوع">Subject</label>
-                            <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70">
-                        </div>
-                        <div class="md:col-span-2">
-                            <label for="message" class="block mb-2" data-en="Your Message" data-ar="رسالتك">Your Message</label>
-                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-white bg-opacity-20 border border-white border-opacity-30 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 placeholder-white placeholder-opacity-70"></textarea>
-                        </div>
-                        <div class="md:col-span-2">
-                            <button type="submit" class="bg-white text-blue-600 px-6 py-3 rounded-full font-semibold hover:bg-blue-50 transition duration-300 w-full md:w-auto" data-en="Send Message" data-ar="إرسال الرسالة">Send Message</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
-                <div>
-                    <h3 class="text-xl font-semibold mb-4" data-en="Smart Inverter" data-ar="العاكس الذكي">Smart Inverter</h3>
-                    <p class="text-gray-400" data-en="An intelligent power conversion solution for renewable energy systems" data-ar="حل تحويل طاقة ذكي لأنظمة الطاقة المتجددة">An intelligent power conversion solution for renewable energy systems</p>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-semibold mb-4" data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Home" data-ar="الرئيسية">Home</a></li>
-                        <li><a href="#features" class="text-gray-400 hover:text-white transition" data-en="Features" data-ar="الميزات">Features</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Gallery" data-ar="المعرض">Gallery</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-semibold mb-4" data-en="Technical Details" data-ar="تفاصيل فنية">Technical Details</h3>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Specifications" data-ar="المواصفات">Specifications</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Documentation" data-ar="الوثائق">Documentation</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition" data-en="Research Papers" data-ar="أوراق البحث">Research Papers</a></li>
-                    </ul>
-                </div>
-                
-                <div>
-                    <h3 class="text-xl font-semibold mb-4" data-en="Connect With Us" data-ar="تواصل معنا">Connect With Us</h3>
-                    <div class="flex space-x-4 mb-4">
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-400 transition"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-red-600 transition"><i class="fab fa-youtube"></i></a>
-                        <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-700 transition"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <p class="text-gray-400" data-en="Email: info@smartinverter.com" data-ar="البريد الإلكتروني: info@smartinverter.com">Email: info@smartinverter.com</p>
-                </div>
-            </div>
-            
-            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
-                <p data-en="© 2023 Smart Inverter Project. All rights reserved." data-ar="© 2023 مشروع العاكس الذكي. جميع الحقوق محفوظة.">© 2023 Smart Inverter Project. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
+<!-- AITU Logo at the bottom -->
+<div class="w-full flex justify-center py-8 bg-white relative">
+    <img src="under/AITU.png" alt="AITU University Logo" class="w-48 h-auto shadow-lg rounded-lg bg-white p-2">
+    <span style="position: absolute; left: 1rem; bottom: 1rem; font-size: 0.85rem; color: #888;">MOKOPA Edition!</span>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -611,6 +594,21 @@
             
             document.querySelectorAll('.slide-in, .slide-in-rtl').forEach(el => {
                 observer.observe(el);
+            });
+
+            // Fade-in on scroll for sections
+            const fadeEls = document.querySelectorAll('section, header');
+            const fadeObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        fadeObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+            fadeEls.forEach(el => {
+                el.classList.add('fade-in');
+                fadeObserver.observe(el);
             });
         });
     </script>
